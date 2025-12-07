@@ -100,3 +100,15 @@ Then open:
 
 http://localhost:4200/map
 
+## Part C - World Bank API Country Properties
+
+For each country, the application retrieves the following six properties from the World Bank API:
+
+1. Country name
+2. Country capital
+3. Country region
+4. Income level
+5. ISO two-letter country code
+6. Population (or another property of my choice)
+
+These values are displayed in the information column when a country is selected from the map.
