@@ -112,3 +112,12 @@ For each country, the application retrieves the following six properties from th
 6. Population (or another property of my choice)
 
 These values are displayed in the information column when a country is selected from the map.
+
+
+
+## Part D - Angular Routing and Default Redirect
+
+- The Angular router is configured in `app.routes.ts`.
+- The default route ('') redirects to `/map` using `pathMatch: 'full'`.
+- The main map view is handled by `MapComponent`.
+- The application configuration in `app.config.ts` uses `provideRouter(routes)` so the redirect is active.
