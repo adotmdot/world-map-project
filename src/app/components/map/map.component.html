@@ -1,0 +1,35 @@
+<div class="container">
+  <!-- Left column: SVG map -->
+  <div class="map-column">
+    <object
+      #svgObject
+      type="image/svg+xml"
+      data="assets/map-image.svg">
+    </object>
+  </div>
+
+  <!-- Right column: country info -->
+  <div class="info-column">
+    <h2>Country information</h2>
+
+    
+    <button (click)="onCountryClicked('US')">Load United States</button>
+
+    <div *ngIf="countryData">
+      <h3>{{ countryData.name }} ({{ countryData.id }})</h3>
+      <p><strong>Capital:</strong> {{ countryData.capitalCity }}</p>
+      <p><strong>Region:</strong> {{ countryData.region?.value }}</p>
+      <p><strong>Income Level:</strong> {{ countryData.incomeLevel?.value }}</p>
+      <p><strong>Longitude:</strong> {{ countryData.longitude }}</p>
+      <p><strong>Latitude:</strong> {{ countryData.latitude }}</p>
+    </div>
+
+    <p *ngIf="!countryData && !errorMessage">
+      Hover over or click a country on the map to see its details.
+    </p>
+
+    <p *ngIf="errorMessage" style="color: red;">
+      {{ errorMessage }}
+    </p>
+  </div>
+</div>

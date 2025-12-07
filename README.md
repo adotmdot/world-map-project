@@ -1,59 +1,102 @@
-# WorldMapProject
+# 🌍 World Map Interactive Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.7.
+**Student ID:** 011256722  
+**Course:** WGU D280  
+**Project:** Interactive World Map with Angular & World Bank API  
 
-## Development server
+---
 
-To start a local development server, run:
+## 📌 Project Description
+
+This project is an Angular web application that displays an **interactive world map using SVG**. Users can **hover over and click on any country** to retrieve real-time country information from the **World Bank API**. The selected country's data is displayed dynamically in a two-column layout.
+
+This project demonstrates the use of:
+
+- Angular Components
+- Angular Routing
+- HTTPClient API integration
+- SVG event binding
+- Dynamic DOM updates
+
+---
+
+## ⚙️ System & Environment Configuration
+
+Angular CLI: 20.3.11
+Node.js: 22.15.0
+Package Manager: npm 10.9.2
+Operating System: Windows 10 (win32 x64)
+
+Angular: 20.3.13
+Packages:
+@angular-devkit/architect  0.2003.11
+@angular-devkit/core       20.3.11
+@angular-devkit/schematics 20.3.11
+@angular/build             20.3.11
+@angular/cli               20.3.11
+@schematics/angular        20.3.11
+rxjs                        7.8.2
+typescript                  5.9.3
+zone.js                     0.15.1
+
+
+---
+
+## 🗂 Required Project Files Included
+
+This repository includes the following required files:
+
+- tsconfig.app.json  
+- tsconfig.json  
+- tsconfig.spec.json  
+- angular.json  
+- package.json  
+- package-lock.json  
+- README.md  
+- src/assets/map-image.svg  
+
+---
+
+## 🗺 Features Implemented
+
+### ✅ SVG World Map
+- SVG world map loads from the assets folder.
+- Hover effects highlight countries.
+- Click events trigger API calls.
+
+### ✅ World Bank API Integration
+Each country displays the following **six required properties**:
+- Country Name
+- Capital City
+- Region
+- Income Level
+- Latitude
+- Longitude
+
+### ✅ Angular Routing
+- Default route automatically redirects to `/map`.
+
+### ✅ Two-Column Layout
+- Left column: Interactive SVG map.
+- Right column: Dynamic country information panel.
+
+### ✅ Event Binding
+- Mouse hover and click events are bound directly to SVG `<path>` elements.
+
+### ✅ HTTP Service
+- WorldBankService retrieves country data using two-letter country codes.
+
+---
+
+## ▶️ Running the Application Locally
+
+To run this project locally:
 
 ```bash
+npm install
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Then open:
 
-## Code scaffolding
+http://localhost:4200/map
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
