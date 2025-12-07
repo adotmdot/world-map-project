@@ -121,3 +121,13 @@ These values are displayed in the information column when a country is selected 
 - The default route ('') redirects to `/map` using `pathMatch: 'full'`.
 - The main map view is handled by `MapComponent`.
 - The application configuration in `app.config.ts` uses `provideRouter(routes)` so the redirect is active.
+
+
+
+## Part E - Two-Column Layout
+
+- The main view uses a two-column layout created in `map.component.html`.
+- The `.container` div uses Flexbox to create two columns:
+  - `.map-column` for the SVG map on the left.
+  - `.info-column` for the country information on the right.
+- Styling for these columns is defined in `map.component.css` so the layout stays responsive.
