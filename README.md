@@ -131,3 +131,15 @@ These values are displayed in the information column when a country is selected 
   - `.map-column` for the SVG map on the left.
   - `.info-column` for the country information on the right.
 - Styling for these columns is defined in `map.component.css` so the layout stays responsive.
+
+
+
+## Part F - Event Binding and Interactive SVG Map
+
+- The SVG map is loaded through an `<object>` element in `map.component.html`.
+- In `map.component.ts`, `@ViewChild('svgobject')` is used to access the SVG document once it loads.
+- Mouse events on the country shapes (`<path>` elements) are bound to a handler that:
+  - Reads the country code (`id` attribute).
+  - Calls the World Bank service `getCountryInfo(code)` to fetch data.
+  - Stores the response in `countryData` for display in the info column.
+
