@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   ViewChild,
+  NgZone
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorldBankService } from '../../services/world-bank.service';
@@ -15,14 +16,18 @@ import { WorldBankService } from '../../services/world-bank.service';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit {
-  @ViewChild('svgObject', { static: true })
-  svgObject!: ElementRef<HTMLObjectElement>;
+  @ViewChild('svgObject', { static: false }) svgObject!: ElementRef<HTMLObjectElement>;
+
 
   selectedCode = '';
   countryData: any = null;
   errorMessage = '';
 
-  constructor(private worldBankService: WorldBankService) {}
+  constructor(
+  private worldBankService: WorldBankService,
+  private ngZone: NgZone
+) {}
+
 
   // ---------------- SVG WIRING ----------------
   ngAfterViewInit(): void {
@@ -69,9 +74,14 @@ export class MapComponent implements AfterViewInit {
         });
 
        
-        el.addEventListener('click', () => {
-          this.onCountryClicked(code);
-        });
+       el.addEventListener('click', () => {
+  console.log('Clicked country code:', code);
+
+  this.ngZone.run(() => {
+    this.onCountryClicked(code);
+  });
+});
+
       });
     };
 
