@@ -1,35 +1,122 @@
-<div class="container">
-  <!-- Left column: SVG map -->
-  <div class="map-column">
-    <object
-      #svgObject
-      type="image/svg+xml"
-      data="assets/map-image.svg">
-    </object>
+<div class="dashboard-container">
+
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h1>Global Analytics Dashboard</h1>
+    <p>
+      Explore country-level economic, demographic, and regional insights
+      through an interactive world map.
+    </p>
   </div>
 
-  <!-- Right column: country info -->
-  <div class="info-column">
-    <h2>Country information</h2>
+  <!-- Main Content -->
+  <div class="dashboard-content">
 
-    
-    
-
-    <div *ngIf="countryData">
-      <h3>{{ countryData.name }} ({{ countryData.id }})</h3>
-      <p><strong>Capital:</strong> {{ countryData.capitalCity }}</p>
-      <p><strong>Region:</strong> {{ countryData.region?.value }}</p>
-      <p><strong>Income Level:</strong> {{ countryData.incomeLevel?.value }}</p>
-      <p><strong>Longitude:</strong> {{ countryData.longitude }}</p>
-      <p><strong>Latitude:</strong> {{ countryData.latitude }}</p>
+    <!-- Left Map -->
+    <div class="map-panel">
+      <object
+        #svgObject
+        type="image/svg+xml"
+        data="assets/map-image.svg">
+      </object>
     </div>
 
-    <p *ngIf="!countryData && !errorMessage">
-      Hover over or click a country on the map to see its details.
-    </p>
+    <!-- Right Analytics Panel -->
+    <div class="info-panel">
 
-    <p *ngIf="errorMessage" style="color: red;">
-      {{ errorMessage }}
-    </p>
+      <div class="panel-title">
+        <h2>Country Analytics</h2>
+      </div>
+
+      <div class="chart-container">
+        <canvas
+          baseChart
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [type]="'line'">
+        </canvas>
+      </div>
+
+      <div class="search-box">
+        <input
+          type="text"
+          placeholder="Search for a country..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearchChange()"
+        />
+
+        <div *ngIf="searchResults.length > 0" class="search-results">
+          <div
+            class="search-result-item"
+            *ngFor="let country of searchResults"
+            (click)="selectSearchResult(country)"
+          >
+            <span>{{ country.name.common }}</span>
+            <small>{{ country.region }}</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Country Selected -->
+      <div *ngIf="countryData" class="country-card">
+
+        <div class="country-header">
+          <h2>{{ countryData.name }}</h2>
+          <span>{{ countryData.id }}</span>
+        </div>
+
+        <div class="analytics-grid">
+
+          <div class="analytics-item">
+            <label>Capital</label>
+            <p>{{ countryData.capitalCity || 'N/A' }}</p>
+          </div>
+
+          <div class="analytics-item">
+            <label>Region</label>
+            <p>{{ countryData.region?.value }}</p>
+          </div>
+
+          <div class="analytics-item">
+            <label>Income Level</label>
+            <p>{{ countryData.incomeLevel?.value }}</p>
+          </div>
+
+          <div class="analytics-item">
+            <label>Longitude</label>
+            <p>{{ countryData.longitude }}</p>
+          </div>
+
+          <div class="analytics-item">
+            <label>Latitude</label>
+            <p>{{ countryData.latitude }}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Empty State -->
+      <div
+        *ngIf="!countryData && !errorMessage"
+        class="empty-state">
+
+        <h3>Select a Country</h3>
+
+        <p>
+          Click on a country from the world map to view
+          detailed analytics and regional information.
+        </p>
+
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="errorMessage" class="error-box">
+        {{ errorMessage }}
+      </div>
+
+    </div>
+
   </div>
+
 </div>
