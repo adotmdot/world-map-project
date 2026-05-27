@@ -181,41 +181,24 @@ export class MapComponent implements AfterViewInit {
   // SVG INITIALIZATION
   // ==============================
   ngAfterViewInit(): void {
-
-    const objectEl =
-      this.svgObject.nativeElement;
-
-    let initialized = false;
+    const objectEl = this.svgObject.nativeElement;
 
     const initSvg = () => {
-
-      if (initialized) return;
-
-      const svgDoc =
-        objectEl.contentDocument;
+      const svgDoc = objectEl.contentDocument;
 
       if (!svgDoc) {
-        console.warn(
-          'SVG document not ready yet'
-        );
+        console.warn('SVG not loaded yet');
         return;
       }
-
-      initialized = true;
 
       const paths = Array.from(
         svgDoc.getElementsByTagName('path')
       );
 
-      console.log(
-        'Total SVG paths:',
-        paths.length
-      );
+      console.log('Total SVG paths:', paths.length);
 
       paths.forEach((el) => {
-
-        const code =
-          el.getAttribute('id') || '';
+        const code = el.getAttribute('id') || '';
 
         if (!code) return;
 
@@ -229,82 +212,51 @@ export class MapComponent implements AfterViewInit {
 
         el.style.cursor = 'pointer';
 
-        // ==========================
-        // HOVER
-        // ==========================
-        el.addEventListener(
-          'mouseenter',
-          () => {
-
-            el.setAttribute(
-              'fill',
-              '#38bdf8'
-            );
-
+        // Hover
+        el.addEventListener('mouseenter', () => {
+          if (
+            this.selectedCode.toUpperCase() !==
+            code.toUpperCase()
+          ) {
+            el.setAttribute('fill', '#60a5fa');
           }
-        );
+        });
 
-        // ==========================
-        // LEAVE
-        // ==========================
-        el.addEventListener(
-          'mouseleave',
-          () => {
+        // Leave
+        el.addEventListener('mouseleave', () => {
+          if (
+            this.selectedCode.toUpperCase() !==
+            code.toUpperCase()
+          ) {
+            const orig =
+              el.getAttribute(
+                'data-original-fill'
+              ) || '';
 
-            if (
-              this.selectedCode.toUpperCase() !==
-              code.toUpperCase()
-            ) {
-
-              const orig =
-                el.getAttribute(
-                  'data-original-fill'
-                ) || '';
-
-              if (orig) {
-
-                el.setAttribute(
-                  'fill',
-                  orig
-                );
-
-              } else {
-
-                el.removeAttribute(
-                  'fill'
-                );
-
-              }
+            if (orig) {
+              el.setAttribute('fill', orig);
+            } else {
+              el.removeAttribute('fill');
             }
           }
-        );
+        });
 
-        // ==========================
-        // CLICK
-        // ==========================
-        el.addEventListener(
-          'click',
-          () => {
-
-            this.ngZone.run(() => {
-
-              this.onCountryClicked(code);
-
-            });
-
-          }
-        );
-
+        // Click
+        el.addEventListener('click', () => {
+          this.ngZone.run(() => {
+            this.onCountryClicked(code);
+          });
+        });
       });
-
     };
 
-    setTimeout(initSvg, 200);
+    // ONLY initialize AFTER svg fully loads
+    objectEl.addEventListener('load', initSvg);
 
-    objectEl.addEventListener(
-      'load',
-      () => initSvg()
-    );
+    // In case SVG already cached/loaded
+    if (objectEl.contentDocument) {
+      initSvg();
+    }
   }
 
   // ==============================
